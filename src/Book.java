@@ -1,16 +1,12 @@
-import java.time.Year;
-
 public class Book {
-    private static final int CURRENT_YEAR = Year.now().getValue();
     private String title;
     private String author;
     private int year;
 
     public Book(String title, int year, String author) {
-        if (title == null || title.isBlank() || year > CURRENT_YEAR ||
-                year <= 1200 || author == null || author.isBlank()) {
-            throw new IllegalArgumentException("Ошибка данных");
-        }
+        ValidationUtils.requireNonBlank("Название", title);
+        ValidationUtils.requireNonBlank("Автор", author);
+        ValidationUtils.requireNotFutureYear(year);
         this.title = title;
         this.year = year;
         this.author = author;
@@ -21,9 +17,8 @@ public class Book {
     }
 
     public void setTitle(String title) {
-        if ((title != null) && !title.isBlank()) {
-            this.title = title;
-        }
+        ValidationUtils.requireNonBlank("Название", title);
+        this.title = title;
     }
 
     public String getAuthor() {
@@ -31,9 +26,8 @@ public class Book {
     }
 
     public void setAuthor(String author) {
-        if ((author != null) && !author.isBlank()) {
-            this.author = author;
-        }
+        ValidationUtils.requireNonBlank("Автор", author);
+        this.author = author;
     }
 
     public int getYear() {
@@ -41,9 +35,8 @@ public class Book {
     }
 
     public void setYear(int year) {
-        if (year <= CURRENT_YEAR) {
-            this.year = year;
-        }
+        ValidationUtils.requireNotFutureYear(year);
+        this.year = year;
     }
 
     public String getBookInfo() {

@@ -3,9 +3,8 @@ public class Person {
     private int age;
 
     public Person(String name, int age) {
-        if ((name == null) || name.isBlank() || age < 0 || age > 100) {
-            throw new IllegalArgumentException("Ошибка данных");
-        }
+        ValidationUtils.requireNonBlank("Имя", name);
+        ValidationUtils.requireInRange("возраст", age, 0, 100);
         this.name = name;
         this.age = age;
     }
@@ -15,9 +14,8 @@ public class Person {
     }
 
     public void setName(String name) {
-        if ((name != null) && !name.isBlank()) {
-            this.name = name;
-        }
+        ValidationUtils.requireNonBlank("Имя", name);
+        this.name = name;
     }
 
     public int getAge() {
@@ -25,9 +23,8 @@ public class Person {
     }
 
     public void setAge(int age) {
-        if (age >= 0 && age <= 100) {
-            this.age = age;
-        }
+        ValidationUtils.requireInRange("возраст", age, 0, 100);
+        this.age = age;
     }
 
     public void introduce() {

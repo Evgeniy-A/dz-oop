@@ -3,9 +3,8 @@ public class Rectangle {
     private double width;
 
     public Rectangle(double length, double width) {
-        if (length <= 0 || width <= 0) {
-            throw new IllegalArgumentException("Ошибка данных");
-        }
+        ValidationUtils.requirePositive("Длинна", length);
+        ValidationUtils.requirePositive("Ширина", width);
         this.length = length;
         this.width = width;
     }
@@ -15,9 +14,8 @@ public class Rectangle {
     }
 
     public void setLength(double length) {
-        if (length > 0) {
-            this.length = length;
-        }
+        ValidationUtils.requirePositive("Длинна", length);
+        this.length = length;
     }
 
     public double getWidth() {
@@ -25,9 +23,8 @@ public class Rectangle {
     }
 
     public void setWidth(double width) {
-        if (width > 0) {
-            this.width = width;
-        }
+        ValidationUtils.requirePositive("Ширина", width);
+        this.width = width;
     }
 
     public double calculateArea() {

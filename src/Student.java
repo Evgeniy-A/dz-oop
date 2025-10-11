@@ -4,10 +4,9 @@ public class Student {
     private double grade;
 
     public Student(String name, int age, double grade) {
-        if (name == null || name.isBlank() || age < 16 || age > 85 ||
-                grade < 0 || grade > 5) {
-            throw new IllegalArgumentException("Ошибка данных");
-        }
+        ValidationUtils.requireNonBlank("Имя", name);
+        ValidationUtils.requireInRange("возраст", age, 16, 85);
+        ValidationUtils.requireInRange("оценка", grade, 0, 5);
         this.name = name;
         this.age = age;
         this.grade = grade;
@@ -18,9 +17,8 @@ public class Student {
     }
 
     public void setName(String name) {
-        if (name != null && !name.isBlank()) {
-            this.name = name;
-        }
+        ValidationUtils.requireNonBlank("Имя", name);
+        this.name = name;
     }
 
     public int getAge() {
@@ -28,9 +26,8 @@ public class Student {
     }
 
     public void setAge(int age) {
-        if (age > 16 && age < 85) {
-            this.age = age;
-        }
+        ValidationUtils.requireInRange("возраст", age, 16, 85);
+        this.age = age;
     }
 
     public double getGrade() {
@@ -38,9 +35,8 @@ public class Student {
     }
 
     public void setGrade(double grade) {
-        if (grade >= 0 && grade <= 5) {
-            this.grade = grade;
-        }
+        ValidationUtils.requireInRange("оценка", grade, 0, 5);
+        this.grade = grade;
     }
 
     public String getStudentInfo() {

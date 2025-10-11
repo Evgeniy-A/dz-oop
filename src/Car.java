@@ -1,18 +1,14 @@
-import java.time.Year;
-
 public class Car {
-    private static final int CURRENT_YEAR = Year.now().getValue();
     private String make;
     private String model;
     private int year;
     private double price;
 
     public Car(String make, String model, int year, double price) {
-        if (make == null || make.isBlank() || model == null ||
-                model.isBlank() || year > CURRENT_YEAR || year <= 1950 ||
-                price <= 0) {
-            throw new IllegalArgumentException("Ошибка данных");
-        }
+        ValidationUtils.requireNonBlank("Марка", make);
+        ValidationUtils.requireNonBlank("Модель", model);
+        ValidationUtils.requireNotFutureYear(year);
+        ValidationUtils.requirePositive("Стоимость", price);
         this.make = make;
         this.model = model;
         this.year = year;
@@ -24,9 +20,8 @@ public class Car {
     }
 
     public void setMake(String make) {
-        if ((make != null) && !make.isBlank()) {
-            this.make = make;
-        }
+        ValidationUtils.requireNonBlank("Марка", make);
+        this.make = make;
     }
 
     public String getModel() {
@@ -34,9 +29,8 @@ public class Car {
     }
 
     public void setModel(String model) {
-        if ((model != null) && !model.isBlank()) {
-            this.model = model;
-        }
+        ValidationUtils.requireNonBlank("Модель", model);
+        this.model = model;
     }
 
     public int getYear() {
@@ -44,9 +38,8 @@ public class Car {
     }
 
     public void setYear(int year) {
-        if (year <= CURRENT_YEAR && year >= 1950) {
-            this.year = year;
-        }
+        ValidationUtils.requireNotFutureYear(year);
+        this.year = year;
     }
 
     public double getPrice() {
@@ -54,9 +47,8 @@ public class Car {
     }
 
     public void setPrice(double price) {
-        if (price > 0) {
-            this.price = price;
-        }
+        ValidationUtils.requirePositive("Стоимость", price);
+        this.price = price;
     }
 
     public String getCarDetails() {
